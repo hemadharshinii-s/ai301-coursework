@@ -31,42 +31,44 @@ Hi! I’d like to investigate issue #73 regarding the discrepancy between the RE
 
 https://github.com/codepath/pathreview-ai301-fa26-s3/issues/73#issuecomment-5902061737
 
-## Issue #73 — README and `.env.example` disagree about which LLM API key to set
+## Reproduction: README / `.env.example` configuration discrepancy
 
 ### Environment
 
-* Platform: Mac (based on the terminal environment shown)
-* Repository: `pathreview-ai301-fa26-s3`
-* Investigation: Inspected the README, `.env.example`, and `core/config.py`.
-* Runtime setup: Not attempted; this report verifies the configuration/documentation discrepancy through file inspection.
+* OS: macOS 14.5 (Build 23F79)
+* Architecture: arm64
+* Python: 3.13.7
+* Git: 2.39.5 (Apple Git-154)
+* Working directory: `ai301-coursework`
+* Coursework repository working tree: clean when environment details were recorded.
+* Path Review repository: `https://github.com/codepath/pathreview-ai301-fa26-s3`
+* Path Review source revision inspected: 2f4e82f52efbcfcc57d65b3fa5348672163ca088
 
-### Steps followed
+### Steps
 
-1. Inspected the README Quick Start instructions using `sed -n '20,28p' README.md`.
-2. Inspected the LLM configuration in `.env.example` using `sed -n '14,22p' .env.example`.
-3. Inspected the LLM-related settings in `core/config.py` using `grep -n -E 'llm_provider|openai_api_key|openrouter_api_key|openrouter_base_url|openrouter_model|env_file' core/config.py`.
-
-### Expected behavior
-
-The README and `.env.example` should consistently identify the LLM provider and API key configuration users need to set up the application.
-
-### Actual behavior
-
-The README instructs users to add `OPENROUTER_API_KEY` to `.env`. However, `.env.example` lists `LLM_PROVIDER=mock` and `OPENAI_API_KEY`, and its provider-options comment lists only `mock` and `openai`. It does not include `OPENROUTER_API_KEY`.
-
-The inspected `core/config.py` defines settings for both `openai_api_key` and `openrouter_api_key`, as well as OpenRouter's base URL and model. The default provider is `mock`.
-
-These files therefore contain the configuration/documentation inconsistency described in the issue.
+1. Open issue #73 and review the reported discrepancy between the README setup instructions and the environment-variable example.
+2. Inspect `README.md`, under **Quick Start**, for the instruction about configuring `OPENROUTER_API_KEY`.
+3. Inspect `.env.example` and compare its documented LLM provider options and environment variables with the README instruction.
+4. Inspect `core/config.py` for the OpenRouter-related settings.
+5. Compare the setup documentation, example environment file, and configuration settings.
 
 ### Evidence
 
-* `README.md`, line 24: `# Configure environment (add your OPENROUTER_API_KEY to .env)`
-* `.env.example`, lines 16–19: provider options list `mock` and `openai`; the file sets `LLM_PROVIDER=mock` and `OPENAI_API_KEY=sk-your-key-here`.
-* `core/config.py`, lines 18–21: defines `llm_provider`, `openai_api_key`, `openrouter_api_key`, `openrouter_base_url`, and `openrouter_model`.
+* **`README.md` — Quick Start:** The setup instructions state: “Configure environment (add your OPENROUTER_API_KEY to .env).”
+* **`.env.example` — LLM provider section:** The example documents: `# Options: "mock" (default, no API key needed), "openai"` and includes `OPENAI_API_KEY=sk-your-key-here`. It does not include an `OPENROUTER_API_KEY` entry.
+* **`core/config.py` — LLM Configuration:** The `Settings` class defines `openrouter_api_key`, `openrouter_base_url`, and `openrouter_model`, with defaults for the base URL and model.
 
-### Limitations
+### Result
 
-I verified the discrepancy by inspecting the repository files. I did not run the application or verify whether this inconsistency causes a runtime failure.
+The README instructs users to configure `OPENROUTER_API_KEY`, but the provided `.env.example` does not include that variable and documents only `mock` and `openai` as provider options. Meanwhile, `core/config.py` defines OpenRouter-related settings.
+
+This establishes a discrepancy between the setup instructions, the example environment configuration, and the configuration settings.
+
+### Scope and limitations
+
+This investigation was based on static inspection of repository documentation and configuration files. I did not run the application or verify runtime behavior. The reproduction therefore confirms the documented configuration inconsistency, not an application execution failure.
+
+The environment details above were recorded from my local machine while preparing this updated reproduction report. They describe the environment used for this report and do not imply that the application was executed.
 
 ## Eval iterations
 
