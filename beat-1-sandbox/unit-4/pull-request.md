@@ -49,6 +49,12 @@ In the second full run, `pkg-16` received `accept`, matching the gold label. The
 
 These rationales use the check names from `tools/pr-precheck/rubric.md` and tie each check to evidence from this submission.
 
+The **Test evidence** check in `tools/pr-precheck/rubric.md` reads:
+
+> Evidence identifies observable commands and results relevant to the planned change, demonstrates the intended fix or behavior, and records the applicable repository checks. A failed or unavailable check must be disclosed accurately; it does not pass if required behavior remains unverified or a claimed success has no supporting result.
+
+I kept this wording because the check needs to distinguish between a claim that testing was performed and evidence that a reviewer can independently inspect. Requiring observable commands and results makes the evidence verifiable, while requiring relevance to the planned change prevents unrelated passing checks from being treated as proof that the intended fix works. The requirement to record repository checks also makes the scope of verification clear. Finally, explicitly addressing failed or unavailable checks prevents missing coverage from being misrepresented as a successful test result. In this PR, that distinction matters because the integration-test command collected no tests and exited with code 5. Documenting that limitation supports an accurate assessment of the evidence without claiming that integration tests passed locally.
+
 **Trade-offs**
 
 The main trade-off is between conservatively rejecting insufficiently supported pull requests and avoiding false rejections of acceptable packages. The first run's `pkg-16` disagreement illustrated this risk. The second run achieved full agreement without any category-level mismatches, while retaining the rubric's emphasis on verifiable evidence, honest disclosure of failed or unavailable checks, and reviewability. The evaluation results are encouraging, although agreement on this benchmark does not guarantee perfect performance on every real-world pull request.
