@@ -38,6 +38,17 @@ I examined `pkg-16`, a package in the `clear-accept` category. In the first full
 
 In the second full run, `pkg-16` received `accept`, matching the gold label. The latest run achieved 20/20 agreement, with every evaluation category matching all of its gold labels. This indicates that the evaluated skill's decisions aligned with the benchmark across all 20 packages in the latest run.
 
+## Check rationale
+
+- **Plan fidelity (silent drift):** The diff changes only `README.md` and `docs/SETUP.md`, matching the planned documentation-only fix. The updated instructions agree with `.env.example`, which sets `LLM_PROVIDER=mock` by default.
+- **Test evidence (not tested):** The unit test suite passed (375 passed, 53 xfailed). Lint and type checking passed. The integration-test command collected no tests and exited with code 5; this limitation is disclosed rather than presented as executed test coverage.
+- **Diff quality (unreviewable):** The change is limited to the two intended documentation files; `.env.example` and `core/config.py` remain unchanged.
+- **Standards and communication (standards wall):** The PR includes the required template sections, issue reference, testing results, justified N/A for screenshots, and AI-use disclosure. The description reflects the actual documentation changes.
+- **Issue alignment:** The PR references issue #73 and documents the correction to the misleading OpenRouter API-key requirement.
+- **Review readiness:** A reviewer can identify the intended change, inspect the before-and-after reproduction evidence, and see the test outcomes and integration-test limitation.
+
+These rationales use the check names from `tools/pr-precheck/rubric.md` and tie each check to evidence from this submission.
+
 **Trade-offs**
 
 The main trade-off is between conservatively rejecting insufficiently supported pull requests and avoiding false rejections of acceptable packages. The first run's `pkg-16` disagreement illustrated this risk. The second run achieved full agreement without any category-level mismatches, while retaining the rubric's emphasis on verifiable evidence, honest disclosure of failed or unavailable checks, and reviewability. The evaluation results are encouraging, although agreement on this benchmark does not guarantee perfect performance on every real-world pull request.
