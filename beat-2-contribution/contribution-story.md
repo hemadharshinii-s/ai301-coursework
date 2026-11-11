@@ -66,10 +66,9 @@ I consolidated my voice guide, added upstream communication rules, and installed
 
 I installed the ship-gate and configured a manifest with TypeScript typechecking, visual-file validation, and the Docusaurus build. On my feature branch, all three checks and the diff check passed, and pr-precheck returned ACCEPT on all six review criteria. The nested CRM checkout initially interfered with typechecking, so I temporarily moved it out of the repository and restored it afterward; I also refined the documentation and evidence to address the gate's review findings.
 
-**Unit 8: [one line on the tool work]**
+**Unit 8: PR monitoring and maintainer-response playbook**
 
-[2-4 sentences: the PR-monitor and your playbook. What it read, what it
-drafted, what you did with the draft.]
+I installed the PR monitor and created a playbook defining my response rules, seven-day staleness threshold, nudge etiquette, and walk-away criteria based on the repository's recent contribution history. The monitor read my PR's status, checks, review decision, comments, and activity, then recommended waiting because there was no human review feedback and the PR was less than a day old. I inspected the draft against the actual GitHub thread, confirmed that the only comment was CodeRabbit's automated notice, and chose not to post an unnecessary reply. The `FEEDBACK-IN` label was initially misleading, so I learned to verify the actual thread rather than rely on the monitor's summary alone.
 
 ---
 
@@ -230,7 +229,7 @@ Updates the volunteer email documentation to match the released ChurchCRM 7.8.3 
 Testing included TypeScript typechecking, visual-file validation, the Docusaurus build, and `git diff --check`; all passed. The change is documentation-only. Claude Code assisted with source analysis, planning, and review; I verified the implementation and test results against the repository.
 
 **Maintainer Feedback:**
-- None yet; awaiting maintainer review.
+- 2026-11-10: No human maintainer feedback yet. The only PR comment is CodeRabbit's automated notice; no response was needed.
 
 **Status:** Awaiting review
 
@@ -247,25 +246,25 @@ Testing included TypeScript typechecking, visual-file validation, the Docusaurus
 
 **Technical Skills Gained**
 
-[What you learned technically, named concretely.]
+I gained experience tracing user-facing documentation to released application source code, comparing documentation across Git commits, and validating a documentation-only contribution against repository checks. I also learned to configure a ship-gate manifest, use Claude Code skills and hooks, and monitor a pull request through GitHub CLI and a custom playbook.
 
 **Challenges Overcome**
 
-[What was hard and how you solved it; point at the real events, the
-Toolkit blocks above are full of them.]
+The nested CRM checkout interfered with TypeScript discovery, so I temporarily moved it before typechecking and restored it afterward. The issue-scout initially ranked candidates using imperfect signals, which required manual verification. During PR monitoring, the monitor labeled an automated CodeRabbit comment as FEEDBACK-IN; I checked the actual GitHub thread and correctly determined that no human response was needed.
 
 **What I'd Do Differently Next Time**
 
-[Reflection on your process.]
+I would verify candidate issues and their released implementation earlier, refine the scout's ranking criteria before reviewing a large candidate set, and document evidence as I work. I would also distinguish automated bot activity from human review feedback when evaluating PR status and continue using repository-specific contribution history to establish reasonable follow-up thresholds.
 
 ---
 
 ## Resources Used
 
-[What actually helped, not a reading list. List things this story
-already shows you using: the doc you followed to set the environment
-up, the thread that explained the bug, the person who answered you.
-One real entry beats ten plausible ones.]
+The following resources supported issue selection, source verification, implementation, and pull-request preparation:
 
-- [Link to documentation that helped]
-- [Discussion, issue, or post that helped]
+- [ChurchCRM issue #10986](https://github.com/ChurchCRM/CRM/issues/10986) — original documentation issue and discussion.
+- [ChurchCRM documentation PR #189](https://github.com/ChurchCRM/docs.churchcrm.io/pull/189) — contribution and maintainer-review thread.
+- [Original documentation at the baseline commit](https://github.com/ChurchCRM/docs.churchcrm.io/blob/575cd3d8bc8cc7c2945d89d27a3be1d437786313/docs/user-guide/ministries/email-and-reminders.md) — used to identify the documentation discrepancy.
+- [Volunteer decline alert implementation, version 7.8.3](https://github.com/ChurchCRM/CRM/blob/7.8.3/src/ChurchCRM/Volunteer/Email/VolunteerDeclineAlertEmail.php) — source verification.
+- [Volunteer gap alert implementation, version 7.8.3](https://github.com/ChurchCRM/CRM/blob/7.8.3/src/ChurchCRM/Volunteer/Email/VolunteerGapAlertEmail.php) — source verification.
+- [AI301 Unit 5 materials](https://github.com/codepath/ai301-unit5-starter), [Unit 6 materials](https://github.com/codepath/ai301-unit6-starter), [Unit 7 materials](https://github.com/codepath/ai301-unit7-starter), and [Unit 8 materials](https://github.com/codepath/ai301-unit8-starter) — workflow, reproduction, ship-gate, and PR-monitor instructions.
