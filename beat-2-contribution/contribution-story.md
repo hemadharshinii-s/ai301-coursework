@@ -120,31 +120,36 @@ This issue fits my interests in practical software and user-facing documentation
 
 **Environment Setup**
 
-[What a stranger would need to stand this up: your operating system,
-the relevant versions (language, runtime, package manager, the project
-itself), and how you set the project up. Then the challenges you faced
-and how you solved them, or that none came up.]
+- Documentation repository: `ChurchCRM/docs.churchcrm.io`
+- Documentation baseline commit: `575cd3d8bc8cc7c2945d89d27a3be1d437786313`
+- Implementation repository: `ChurchCRM/CRM`
+- Released version checked: `7.8.3`
+- Documentation file: `docs/user-guide/ministries/email-and-reminders.md`
+- Implementation files:
+  - `src/ChurchCRM/Volunteer/Email/VolunteerDeclineAlertEmail.php`
+  - `src/ChurchCRM/Volunteer/Email/VolunteerGapAlertEmail.php`
+- The comparison used the committed documentation and released implementation source. No application-level email delivery test was run.
 
 **Steps to Reproduce**
 
-1. [Step 1]
-2. [Step 2]
-3. [Observed result]
+1. Open the [documentation page at commit 575cd3d](https://github.com/ChurchCRM/docs.churchcrm.io/blob/575cd3d8bc8cc7c2945d89d27a3be1d437786313/docs/user-guide/ministries/email-and-reminders.md#L21-L28).
+2. Read the decline-alert and gap-alert rows (lines 21–22) and the button explanation (line 28).
+3. Inspect the [decline alert implementation at release 7.8.3](https://github.com/ChurchCRM/CRM/blob/7.8.3/src/ChurchCRM/Volunteer/Email/VolunteerDeclineAlertEmail.php#L61-L98).
+4. Inspect the [gap alert implementation at release 7.8.3](https://github.com/ChurchCRM/CRM/blob/7.8.3/src/ChurchCRM/Volunteer/Email/VolunteerGapAlertEmail.php#L40-L70).
+5. Compare the documented email content and button behavior with the released implementation.
 
 **Reproduction Evidence**
 
-- **Commit showing reproduction:** [link to commit in your fork]
-- **Screenshots/logs:** [if applicable]
-- **My findings:** [what you discovered during reproduction; an
-  honest, evidenced cannot-reproduce that led you to re-pick or ask
-  the maintainer belongs here and costs you nothing]
+- **Commit showing reproduction:** none; the reproduction is evidenced by the pinned documentation and source links.
+- **Screenshots/logs:** source excerpts and documentation quotations are recorded below and linked above.
+- **My findings:** The current documentation says both alerts have a **Fill this gap** button and explains that button, but does not mention the released **View Assignments** alternative. The released decline alert also includes the volunteer's reason when provided, people assigned since the decline and their acceptance status, and either the remaining number needed or a message that the position is still covered. The gap alert includes the total number of volunteers still needed. The coordinator-recorded-decline skip rule was not independently verified during this reproduction. This is a documentation discrepancy, not a claim that the released email functionality itself is broken.
 
 **Toolkit**
 
-- Tool:
-- What it produced:
-- Difficulties:
-- What changed:
+- Tool: Claude Code with the `repro-check` skill; GitHub source permalinks and Git commands.
+- What it produced: An accepted reproduction report after all six checks passed.
+- Difficulties: The first report asserted the documentation discrepancy without quoting the baseline documentation. The grader also identified missing source links and unsupported skip-rule claims.
+- What changed: Added the exact documentation wording, pinned links to the baseline commit and release 7.8.3 source, and explicitly identified the behavior that was not independently verified.
 
 ---
 
