@@ -109,7 +109,7 @@ The documentation page does not describe the conditional button behavior or the 
 
 **Toolkit**
 
-- Tool: Claude Code with the `repro-check` skill and GitHub source permalinks.
+- Tool: I used Claude Code's `repro-check` skill to investigate the issue and compare the documented behavior with the released implementation, then used GitHub source permalinks to trace the relevant email logic to specific source lines.
 - What it produced: An accepted reproduction report comparing the documentation baseline with the released 7.8.3 implementation.
 - Difficulties: The initial reproduction report lacked exact baseline documentation quotations and included an unverified skip-rule claim.
 - What changed: Added pinned source links, exact documentation evidence, and a clear distinction between verified behavior and unverified behavior.
@@ -120,15 +120,34 @@ The documentation page does not describe the conditional button behavior or the 
 
 **Environment Setup**
 
-- Documentation repository: `ChurchCRM/docs.churchcrm.io`
-- Documentation baseline commit: `575cd3d8bc8cc7c2945d89d27a3be1d437786313`
-- Implementation repository: `ChurchCRM/CRM`
-- Released version checked: `7.8.3`
-- Documentation file: `docs/user-guide/ministries/email-and-reminders.md`
+- Operating system: macOS Sonoma 14.5 (Build 23F79).
+- Node.js: v24.11.0.
+- npm: 11.6.1.
+- Python: 3.13.7.
+- Git: 2.39.5 (Apple Git-154).
+- TypeScript: 5.6.3.
+- Docusaurus: @docusaurus/core 3.9.2.
+- Documentation repository: `ChurchCRM/docs.churchcrm.io`.
+- Documentation baseline commit: `575cd3d8bc8cc7c2945d89d27a3be1d437786313`.
+- Implementation repository: `ChurchCRM/CRM`.
+- Released version checked: `7.8.3`.
+- Documentation file: `docs/user-guide/ministries/email-and-reminders.md`.
 - Implementation files:
   - `src/ChurchCRM/Volunteer/Email/VolunteerDeclineAlertEmail.php`
   - `src/ChurchCRM/Volunteer/Email/VolunteerGapAlertEmail.php`
-- The comparison used the committed documentation and released implementation source. No application-level email delivery test was run.
+  - `src/ChurchCRM/Volunteer/Service/VolunteerNotificationService.php`
+
+**Setup and verification commands:**
+
+1. Clone the documentation repository and enter its directory:
+   `git clone https://github.com/ChurchCRM/docs.churchcrm.io.git`
+   `cd docs.churchcrm.io`
+2. Install the repository dependencies using `npm ci`.
+3. Check the local toolchain using `sw_vers`, `node --version`, `npm --version`, `python3 --version`, `git --version`, and `npx tsc --version`.
+4. Confirm the Docusaurus version using `npm list @docusaurus/core --depth=0`.
+5. Compare the documentation baseline with the released `7.8.3` implementation source using the pinned GitHub links in the reproduction steps.
+
+The comparison used the committed documentation and released implementation source. No application-level email delivery test was run.
 
 **Steps to Reproduce**
 
@@ -140,13 +159,42 @@ The documentation page does not describe the conditional button behavior or the 
 
 **Reproduction Evidence**
 
-- **Commit showing reproduction:** none; the reproduction is evidenced by the pinned documentation and source links.
-- **Screenshots/logs:** source excerpts and documentation quotations are recorded below and linked above.
-- **My findings:** The current documentation says both alerts have a **Fill this gap** button and explains that button, but does not mention the released **View Assignments** alternative. The released decline alert also includes the volunteer's reason when provided, people assigned since the decline and their acceptance status, and either the remaining number needed or a message that the position is still covered. The gap alert includes the total number of volunteers still needed. The coordinator-recorded-decline skip rule was not independently verified during this reproduction. This is a documentation discrepancy, not a claim that the released email functionality itself is broken.
+- **Commit showing reproduction:** The reproduction is documented through a comparison of the original documentation at baseline commit `575cd3d8bc8cc7c2945d89d27a3be1d437786313` and the released ChurchCRM `7.8.3` implementation. The source links below identify the exact implementation lines used for verification.
+- **Screenshots/logs:** A before-and-after comparison is recorded in `test_evidence.md`, including the original documentation wording, the updated documentation wording, and the corresponding implementation evidence.
+
+**Before — original documentation on the baseline:**
+
+The original decline-alert and gap-alert descriptions both referred to a **Fill this gap** button. The explanation stated that **Fill this gap** opened the date's staffing view and **Review this request** opened the Ministry Dashboard. It did not document the conditional **View Assignments** label or the detailed email content present in the released implementation.
+
+Original documentation excerpt:
+
+| Alert | Original documented behavior |
+|---|---|
+| A volunteer has declined an assignment | Described the alert as including how many the position still needed and a **Fill this gap** button. |
+| Volunteer positions still need to be filled | Described the alert as listing each position still short and including a **Fill this gap** button. |
+
+**After — updated documentation on the feature branch:**
+
+The updated documentation describes the optional volunteer reason, replacement assignments and acceptance status, remaining-needed counts, and the condition under which the position is confirmed as covered. It also explains that the button changes between **Fill this gap** and **View Assignments**, depending on whether volunteers are still needed.
+
+Updated documentation excerpt:
+
+| Alert | Updated documented behavior |
+|---|---|
+| A volunteer has declined an assignment | Documents the optional reason, replacement assignments and acceptance status, remaining-needed count, and still-covered condition. |
+| Volunteer positions still need to be filled | Documents the remaining-needed count and positions that remain unfilled, including after a coordinator-recorded decline. |
+
+**Source verification:**
+
+- The [decline alert implementation at release 7.8.3](https://github.com/ChurchCRM/CRM/blob/7.8.3/src/ChurchCRM/Volunteer/Email/VolunteerDeclineAlertEmail.php#L61-L98) verifies the optional reason, replacement assignment information, acceptance status, remaining-needed count, still-covered condition, and conditional button label.
+- The [gap alert implementation at release 7.8.3](https://github.com/ChurchCRM/CRM/blob/7.8.3/src/ChurchCRM/Volunteer/Email/VolunteerGapAlertEmail.php#L40-L70) verifies the remaining-needed count, short-position list, and conditional button label.
+- The [notification service at release 7.8.3](https://github.com/ChurchCRM/CRM/blob/7.8.3/src/ChurchCRM/Volunteer/Service/VolunteerNotificationService.php#L1182-L1185) verifies the send-time exclusion when a volunteer is no longer in the declined state.
+
+- **My findings:** The before-and-after comparison demonstrates that the discrepancy was missing documentation, not broken email functionality. The updated documentation now reflects the released implementation. The coordinator-recorded-decline behavior was separately verified in the notification service and preserved in the documentation. No application-level email delivery test was performed.
 
 **Toolkit**
 
-- Tool: Claude Code with the `repro-check` skill; GitHub source permalinks and Git commands.
+- Tool: I used Claude Code's `repro-check` skill to structure and validate the reproduction, Git commands to inspect the original documentation baseline, and pinned GitHub source links to compare the documented behavior with the 7.8.3 implementation.
 - What it produced: An accepted reproduction report after all six checks passed.
 - Difficulties: The first report asserted the documentation discrepancy without quoting the baseline documentation. The grader also identified missing source links and unsupported skip-rule claims.
 - What changed: Added the exact documentation wording, pinned links to the baseline commit and release 7.8.3 source, and explicitly identified the behavior that was not independently verified.
@@ -172,7 +220,7 @@ Update the existing documentation page to accurately describe the contents of bo
 
 **Toolkit**
 
-- Tool: Claude Code with the `plan-check` and repository guidance skills.
+- Tool: I used Claude Code's `plan-check` and repository guidance skills to turn the verified discrepancy into a scoped implementation plan, identify the exact documentation changes needed, and preserve existing behavior that was outside the issue's scope.
 - What it produced: A scoped implementation plan grounded in the reproduced discrepancy and released source code.
 - Difficulties: The documentation discrepancy could be mistaken for a defect in the email functionality itself.
 - What changed: Kept the proposed fix limited to one documentation page and explicitly excluded application-code changes and unverified behavior.
@@ -194,7 +242,7 @@ The change is documentation-only, so verification focuses on comparing the origi
 
 **Toolkit**
 
-- Tool: Git, npm scripts, and the project's visual-check script.
+- Tool: I used Git to compare the before-and-after documentation and check the diff, npm scripts to run the Docusaurus build and TypeScript typecheck, and the project's visual-check script to validate documentation assets and links.
 - What it produced: Before-and-after documentation comparisons and successful local check results, recorded in `test_evidence.md`.
 - Difficulties: The nested `CRM/` checkout interfered with TypeScript discovery; the local build also emitted existing environment warnings.
 - What changed: Temporarily moved the nested checkout during typechecking, restored it afterward, and documented the build warnings accurately.
@@ -211,7 +259,7 @@ Compared the original documentation on `main` with the updated page. Ran the vis
 
 **Toolkit**
 
-- Tool: Git, TextEdit, npm scripts, and Claude Code.
+- Tool: I used Git to create and manage the feature branch and inspect the final diff, TextEdit and Claude Code to edit and review the documentation, and npm scripts to verify the completed change.
 - What it produced: A focused documentation change on a feature branch, plus local test evidence.
 - Difficulties: The nested CRM checkout interfered with TypeScript discovery, and the Docusaurus build reported existing warnings.
 - What changed: Temporarily moved the nested checkout while running typecheck, restored it afterward, and kept the contribution limited to the planned documentation page.
@@ -235,7 +283,7 @@ Testing included TypeScript typechecking, visual-file validation, the Docusaurus
 
 **Toolkit**
 
-- Tool: Claude Code ship-gate, GitHub CLI, and the Unit 7 manifest.
+- Tool: I used Claude Code's ship-gate and the Unit 7 manifest to evaluate PR readiness against six criteria, GitHub CLI to create and inspect PR #189 and its checks and comments, and the manifest to record the required repository checks.
 - What it produced: An ACCEPT verdict across all six pr-precheck criteria, passing repository checks, and PR #189 against the original repository.
 - Difficulties: The nested CRM checkout interfered with typechecking; GitHub is also awaiting maintainer approval for two workflows.
 - What changed: I temporarily moved and restored the nested checkout, documented the checks and evidence, and opened the PR only after the final gate passed.
