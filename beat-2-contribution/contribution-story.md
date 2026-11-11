@@ -1,4 +1,4 @@
-# Contribution: [Issue Title]
+# Contribution: Docs: decline and gap alert email content (for #10984)
 
 Path: `beat-2-contribution/contribution-story.md`
 
@@ -8,10 +8,9 @@ format criteria grade exactly that. Your course repo link is the whole submissio
 files and no evidence uploads are part of Assignment 5.
 
 **Contribution Number:** [1]
-**Student:** [Student name]
-**GitHub Username:** [your GitHub username, exactly as it appears on your profile - no @, no
-profile URL. Your comments upstream are identified by this name.]
-**Issue:** [GitHub issue link]
+**Student:** Hema Sendhilvel
+**GitHub Username:** hemadharshinii-s
+**Issue:** https://github.com/ChurchCRM/CRM/issues/10986
 **Pull Request:** [GitHub PR link, once opened]
 
 One repository, built across units 5 to 8, telling the whole story of your real
@@ -79,24 +78,16 @@ drafted, what you did with the draft.]
 
 ## Why I Chose This Issue
 
-[1-2 paragraphs in your own words: how you searched, what your scan
-surfaced, what your scout's verdict said, why this issue fits your
-profile, and what you hope to learn. If your scout's verdict on it
-was reject and you chose it anyway, say so here and say why; choosing
-against your own tool silently is what loses points. Close with an
-honest read of the tool itself: where the scout fell short on a real
-wild search and what you changed or would change, or what convinced
-you it held up. **Record the link to your claim comment in this section too.**
-Not claimed yet? Write `claim pending` and today's date where the link goes,
-and add the link the moment your claim lands.]
+I searched for open-source contribution opportunities using my personalized fit profile and GitHub issue-scout workflow. The scan reviewed more than 190 candidates after deduplication and filtering, and surfaced several potentially suitable issues. I also evaluated two ChurchCRM documentation issues from the course tracker: #10986 and #10837. Both passed the rubric's required checks on regrading. I selected #10986, “Docs: decline and gap alert email content,” which received an ACCEPT verdict and a straightforward difficulty note.
+
+This issue fits my interests in practical software and user-facing documentation because it is a bounded update to an existing guide, rather than a broad redesign. It gives me an opportunity to learn how to trace user-facing documentation back to released application behavior and contribute to a real, maintained project. The scout helped narrow the options, but its ranking favored recently updated issues with few comments, and its initial rubric needed clearer treatment of practice repositories, bot-generated issues, and already-shipped prerequisites. I addressed some of these limitations through manual verification and the Unit 6 rubric update. My claim comment is [here](https://github.com/ChurchCRM/CRM/issues/10986#issuecomment-6782951049).
 
 **Toolkit**
 
-- Tool: issue-scout (your scout: your search strategy, your rubric),
-  and how you used it
-- What it produced: [the scan and its verdict on this issue, described]
-- Difficulties: [where it fell short, or "none met" if none did]
-- What changed: [what you patched or would update, or "nothing"]
+- Tool: Claude Code with the issue-scout skill; I used my search strategy, personalized fit profile, and rubric to find and grade candidates.
+- What it produced: A scan of more than 190 deduplicated candidates and an ACCEPT verdict for ChurchCRM/CRM#10986, ranked ahead of #10837; the selected issue was rated straightforward.
+- Difficulties: The ranking favored recently updated issues with few comments, the recency filter did not narrow the results, and the initial rubric did not adequately distinguish practice repositories, bot-generated issues, or prerequisites that had already shipped.
+- What changed: I manually checked repository activity, issue availability, release status, and the target documentation. In Unit 6, I revised the scope check and added separate difficulty notes rather than treating every multi-file or open-design issue as automatically out of scope.
 
 ---
 
