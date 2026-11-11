@@ -55,10 +55,9 @@ happened; these entries are the toolkit's own timeline.
 All four entries are graded. Keep every heading below, and fill each
 one in the week it belongs to.
 
-**Unit 5: [one line on the tool work]**
+**Unit 5: Built and evaluated an issue-scout workflow for finding contribution candidates**
 
-[2-4 sentences: what you built (the scout, your strategy), what broke
-or fell short, what changed because of it.]
+I built an issue-scout workflow with a personalized fit profile, GitHub search strategy, and grading rubric, then ran it against real open-source issues. The scan surfaced useful candidates, but its ranking favored recently updated issues with few comments, and the recency filter did not meaningfully narrow the results. Manual review also exposed gaps in distinguishing practice repositories, bot-generated issues, and issues with prerequisites that had already shipped. I supplemented the scout's grades with direct repository and release verification before selecting ChurchCRM issue #10986.
 
 **Unit 6: [one line on the tool work]**
 
