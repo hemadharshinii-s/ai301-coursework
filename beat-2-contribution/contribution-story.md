@@ -58,11 +58,9 @@ one in the week it belongs to.
 
 I built an issue-scout workflow with a personalized fit profile, GitHub search strategy, and grading rubric, then ran it against real open-source issues. The scan surfaced useful candidates, but its ranking favored recently updated issues with few comments, and the recency filter did not meaningfully narrow the results. Manual review also exposed gaps in distinguishing practice repositories, bot-generated issues, and issues with prerequisites that had already shipped. I supplemented the scout's grades with direct repository and release verification before selecting ChurchCRM issue #10986.
 
-**Unit 6: [one line on the tool work]**
+**Unit 6: Installed a voice guard and created repository-specific memory**
 
-[2-4 sentences: the voice-guard, the repo-memory file. What broke or
-fell short, and what changed because of it. "Nothing broke" counts when
-it is true - say how you know.]
+I consolidated my voice guide, added upstream communication rules, and installed a Claude Code pre-tool hook. The wiring test confirmed that the hook intercepted a Bash command, although it intentionally blocked the interactive `--help` form because it could not read a draft body. I created a local `CLAUDE.local.md` with distilled ChurchCRM documentation conventions, subsystem orientation, and verification notes, then excluded it through `.git/info/exclude` so it will not enter the PR.
 
 **Unit 7: [one line on the tool work]**
 
