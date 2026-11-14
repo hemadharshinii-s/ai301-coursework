@@ -3,7 +3,7 @@
 
 ## Overview
 
-ChurchCRM is an open-source church management platform that helps organizations manage their ministries, volunteers, and assignments. I contributed to its documentation by addressing missing details in the guide for volunteer decline and staffing-gap notification emails. I investigated the released ChurchCRM 7.8.3 implementation and updated the volunteer email guide to explain notification contents, send-time behavior, and button destinations. I submitted my changes in [PR #189](https://github.com/ChurchCRM/docs.churchcrm.io/pull/189), which remains open and is awaiting maintainer review.
+ChurchCRM is an open-source church management platform that helps organizations manage their ministries, volunteers, and assignments. I contributed to its documentation by addressing missing details in the guide for volunteer decline and staffing-gap notification emails. I investigated the released ChurchCRM 7.8.3 implementation and prepared updates to the volunteer email guide explaining notification contents, send-time behavior, and button destinations. I submitted my changes in [PR #189](https://github.com/ChurchCRM/docs.churchcrm.io/pull/189), which remains open and is awaiting maintainer review.
 
 ## What happened
 
@@ -67,17 +67,17 @@ The nested local CRM checkout also had to be temporarily moved outside the docum
 
 ### A change I made
 
-My contribution involved more than one documentation revision. My first commit, `59e99cd` (Clarify decline and gap alert email documentation), introduced the updated explanations for the notification contents and button behavior.
+My contribution involved more than one documentation revision. My first commit, `59e99cd` (Clarify decline and gap alert email documentation), introduced the updated explanations for notification contents and button behavior.
 
-While reviewing the changes, I recognized that clarifying the email behavior also required preserving existing navigation and routing details. I made a second commit, `26d2933` (Preserve existing alert email routing documentation), to retain the coordinator-recorded-decline exception and the My Teams fallback for team leaders without the required permissions.
+When I reviewed the diff for this commit, I noticed that the new wording had removed two details from the existing guide: the exception for declines recorded by a coordinator and the My Teams fallback for team leaders without Manage My Ministries access. Although I had added the requested alert details, I had unintentionally removed existing guidance that users still needed.
 
-This second revision helped ensure that the new explanations did not remove important information that was already present in the guide. The final pull request therefore includes both the new notification details and the existing routing behavior.
+I corrected this in my second commit, `26d2933` (Preserve existing alert email routing documentation), restoring both details while retaining the new explanations. This taught me to review deletions in my own diffs, not just verify that my additions are correct.
 
 ### Outcome
 
-I submitted the documentation contribution in [ChurchCRM/docs.churchcrm.io PR #189](https://github.com/ChurchCRM/docs.churchcrm.io/pull/189), containing two commits targeting the repository's `main` branch. The pull request addresses ChurchCRM/CRM issue #10986 and updates one documentation file.
+My deliverable is [ChurchCRM/docs.churchcrm.io PR #189](https://github.com/ChurchCRM/docs.churchcrm.io/pull/189), which contains two commits updating `docs/user-guide/ministries/email-and-reminders.md`. The proposed documentation changes clarify what volunteer decline and staffing-gap alerts communicate, when they are sent, and how their action buttons behave. They also preserve the existing coordinator-decline exception and My Teams navigation fallback.
 
-The four local validation checks passed, and the documentation changes reflect the released ChurchCRM 7.8.3 implementation. The pull request remains open and has not yet received human maintainer review. Its required GitHub workflows are awaiting maintainer approval, and GitHub reports that the branch is out of date with the base branch, although the changes can be cleanly merged. The contribution has therefore been submitted but has not yet been merged.
+I validated the documentation changes locally using typechecking, visual-file checks, a production build, and `git diff --check`. All four checks passed. The result is a completed, locally validated documentation contribution submitted for review. The pull request remains open, has not yet received human maintainer review, and has not been merged. Its required GitHub workflows are still awaiting maintainer approval, and the branch is out of date with the base branch, although GitHub reports that it can be cleanly merged.
 
 ## Limitations and what's next
 
